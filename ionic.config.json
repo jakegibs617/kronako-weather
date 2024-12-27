@@ -1,0 +1,7 @@
+{
+  "name": "kronako-weather",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
