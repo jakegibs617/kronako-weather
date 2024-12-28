@@ -1,20 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<mat-toolbar color="primary">
+  <span>Kronako-Weather</span>
+</mat-toolbar>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<!-- Weather Search Input -->
+<div style="margin: 16px">
+  <mat-form-field appearance="fill" style="width: 100%">
+    <mat-label>Enter City, State or ZIP</mat-label>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="userLocation"
+      placeholder="e.g. 02108 or Boston,MA"
+    />
+  </mat-form-field>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+  <button
+    mat-raised-button
+    color="primary"
+    style="width: 100%"
+    (click)="searchWeather()"
+  >
+    Search Weather
+  </button>
+</div>
+
+<!-- Show Weather Card if 'weather' is defined -->
+<mat-card *ngIf="weather">
+  <mat-card-header>
+    <mat-card-title>{{ weather?.name }}</mat-card-title>
+    <mat-card-subtitle>
+      {{ weather?.weather[0]?.description | titlecase }}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Temperature: {{ weather?.main?.temp }}°F</p>
+    <p>Recommended Outfit: {{ getOutfitRecommendation() }}</p>
+  </mat-card-content>
+</mat-card>
+
+<!-- If no data yet -->
+<ng-template #loading>
+  <p>Loading weather data...</p>
+</ng-template>
+
+<!-- Let user submit outfits -->
+<div style="margin: 16px">
+  <mat-form-field appearance="fill" style="width: 100%">
+    <mat-label>What are you wearing?</mat-label>
+    <input matInput [(ngModel)]="userOutfit" />
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="primary"
+    style="width: 100%"
+    (click)="submitOutfit()"
+  >
+    Submit Outfit
+  </button>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let outfit of outfits">
+    <mat-icon matListIcon>checkroom</mat-icon>
+    <span matLine>{{ outfit }}</span>
+  </mat-list-item>
+</mat-list>

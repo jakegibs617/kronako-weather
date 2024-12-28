@@ -1,9 +1,10 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'kronako-weather',
-  webDir: 'www'
+  appId: 'com.kronako.weather',
+  appName: 'Kronako-Weather',
+  webDir: 'www', // Ensure this matches your build output
+  bundledWebRuntime: false,
 };
 
 export default config;
